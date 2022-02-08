@@ -34,7 +34,6 @@ const Login = () => {
       <Head>
         <title>Login</title>
       </Head>
-
       <Container
         className="p-2 h-[100vh]  w-[100%] flex-col hidden md:inline"
         component="main"
@@ -67,6 +66,13 @@ const Login = () => {
             alignItems: "center",
           }}
         >
+          <Typography
+            className="text-gray-700 text-center"
+            component="h1"
+            variant="h3"
+          >
+            Welcome
+          </Typography>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>

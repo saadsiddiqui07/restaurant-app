@@ -5,27 +5,13 @@ import { useStateValue } from "../context-api/StateProvider";
 import { useRouter } from "next/router";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
+import Header from "../components/Header/Header";
 
 export default function Home() {
   const [{ user }, dispatch] = useStateValue();
   const router = useRouter();
 
   // handle user logout
-  const handleSignOut = (e) => {
-    e.preventDefault();
-    // to let a user signOut
-    signOut(auth)
-      .then(() => {
-        dispatch({
-          type: "SET_USER",
-          user: null,
-        });
-        router.push("/login");
-        console.log("User signed out successfully");
-      })
-      .catch((err) => console.log(err));
-  };
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authUser) => {
       if (authUser) {
@@ -52,8 +38,7 @@ export default function Home() {
       </Head>
 
       <div className="h-screen flex flex-col">
-        <h1>you are logged in</h1>
-        <button onClick={handleSignOut}>Logout</button>
+        <Header />
       </div>
     </div>
   );

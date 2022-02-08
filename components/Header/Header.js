@@ -14,6 +14,9 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useStateValue } from "../../context-api/StateProvider";
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/router";
+import { auth } from "../../Firebase/firebase";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -55,10 +58,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [{ cart }] = useStateValue();
+  const [{ cart }, dispatch] = useStateValue();
+  const router = useRouter();
+
+  // signout function
+  const handleSignOut = (e) => {
+    e.preventDefault();
+    // to let a user signOut
+    signOut(auth)
+      .then(() => {
+        dispatch({
+          type: "SET_USER",
+          user: null,
+        });
+        setAnchorEl(null);
+        router.push("/login");
+        console.log("User signed out successfully");
+      })
+      .catch((err) => console.log(err));
+  };
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -97,7 +118,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <MenuItem onClick={handleSignOut}>Logout</MenuItem>
     </Menu>
   );
 

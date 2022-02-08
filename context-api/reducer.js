@@ -1,6 +1,6 @@
 // initial state values of the application
 export const initialState = {
-  cart: [],
+  cart: ["saad", "siddiqui"],
   user: null,
 };
 

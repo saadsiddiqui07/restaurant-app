@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
 import Header from "../components/Header/Header";
+import Categories from "../components/Categories/Categories";
 
 export default function Home() {
   const [{ user }, dispatch] = useStateValue();
@@ -27,7 +28,7 @@ export default function Home() {
     return () => {
       unsubscribe();
     };
-  }, [dispatch]);
+  }, [router, dispatch]);
 
   return (
     <div className={styles.home}>
@@ -37,9 +38,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="h-screen flex flex-col">
+      <main className="flex flex-col">
         <Header />
-      </div>
+        <div className="flex flex-col">
+          <Categories />
+        </div>
+      </main>
     </div>
   );
 }

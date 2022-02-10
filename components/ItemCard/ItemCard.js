@@ -11,7 +11,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useStateValue } from "../../context-api/StateProvider";
 
 export default function ItemCard({ id, title, price, rating, image, amount }) {
-  const [{ user, cart }, dispatch] = useStateValue();
+  const [{}, dispatch] = useStateValue();
   const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
@@ -21,6 +21,14 @@ export default function ItemCard({ id, title, price, rating, image, amount }) {
     setOpen(false);
   };
 
+  const handleOpenDrawer = () => {
+    dispatch({
+      type: "OPEN_DRAWER",
+      payload: {
+        isDrawerOpen: true,
+      },
+    });
+  };
   // add an item to cart
   const addToCart = () => {
     dispatch({
@@ -35,6 +43,7 @@ export default function ItemCard({ id, title, price, rating, image, amount }) {
       },
     });
     setOpen(true);
+    handleOpenDrawer();
   };
 
   const Alert = React.forwardRef(function Alert(props, ref) {

@@ -1,12 +1,21 @@
+import { useEffect } from "react";
 import { useStateValue } from "../../context-api/StateProvider";
 import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
+import CurrencyFormat from "react-currency-format";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
 const Cart = () => {
-  const [{ cart, isDrawerOpen }, dispatch] = useStateValue();
+  const [{ cart, total }, dispatch] = useStateValue();
 
-  const handleDrawer = () => {
+  // get total on every time product amount changed
+  useEffect(() => {
+    dispatch({
+      type: "GET_TOTAL",
+    });
+  }, [dispatch, cart]);
+
+  const closeDrawer = () => {
     dispatch({
       type: "OPEN_DRAWER",
       payload: {
@@ -18,10 +27,16 @@ const Cart = () => {
   return (
     <div className="w-[500px] flex flex-col items-center">
       <div className="w-full flex flex-row justify-between items-center p-2">
-        <h2> Your cart </h2>
-        <IconButton onClick={handleDrawer}>
-          <CloseIcon />
-        </IconButton>
+        <h2> Your cart {cart?.length} items </h2>
+        <div>
+          <CurrencyFormat
+            renderText={(value) => <p>₹ {`${value}`}</p>}
+            decimalScale={2}
+            displayType={"text"}
+            thousandSeparator={true}
+            value={total}
+          />
+        </div>
       </div>
       {cart?.map((item, index) => (
         <CheckoutItem

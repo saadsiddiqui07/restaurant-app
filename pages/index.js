@@ -9,7 +9,7 @@ import Header from "../components/Header/Header";
 import Categories from "../components/Categories/Categories";
 
 export default function Home() {
-  const [{ user }, dispatch] = useStateValue();
+  const [{}, dispatch] = useStateValue();
   const router = useRouter();
 
   // handle user logout

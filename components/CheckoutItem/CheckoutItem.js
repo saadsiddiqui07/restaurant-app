@@ -11,9 +11,31 @@ import { useStateValue } from "../../context-api/StateProvider";
 const CheckoutItem = ({ id, title, image, price, amount, rating }) => {
   const [{}, dispatch] = useStateValue();
 
-  const increaseItemAmount = () => {};
+  const removeFromCart = () => {
+    dispatch({
+      type: "REMOVE_FROM_CART",
+      id: id,
+    });
+  };
 
-  const decreaseItemAmount = () => {};
+  const increaseItemAmount = () => {
+    dispatch({
+      type: "INCREASE",
+      payload: {
+        id: id,
+      },
+    });
+  };
+
+  const decreaseItemAmount = () => {
+    dispatch({
+      type: "DECREASE",
+      payload: {
+        id: id,
+        amount: amount,
+      },
+    });
+  };
 
   return (
     <Card className="m-2 w-[100%]" sx={{ maxWidth: 345 }}>
@@ -35,15 +57,18 @@ const CheckoutItem = ({ id, title, image, price, amount, rating }) => {
         </Typography>
       </CardContent>
       <CardActions className="flex flex-row items-center justify-between p-2 w-[100%]">
-        <span className="p-2 bg-purple-500 text-white font-bold text-xs rounded-md">
-          ★{rating}
-        </span>
+        <button
+          onClick={removeFromCart}
+          className="p-2 bg-black cursor-pointer text-white font-bold text-xs rounded-md border-2 border-none hover:border-black"
+        >
+          Remove
+        </button>
         <div className=" flex flex-row items-center">
-          <IconButton>
+          <IconButton onClick={increaseItemAmount}>
             <AddBoxIcon className="text-green-500" />
           </IconButton>
           <p className="font-bold text-[20px]">{amount}</p>
-          <IconButton>
+          <IconButton onClick={decreaseItemAmount}>
             <IndeterminateCheckBoxIcon className="text-red-400" />
           </IconButton>
         </div>

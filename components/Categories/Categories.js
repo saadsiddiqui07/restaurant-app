@@ -3,13 +3,18 @@ import { data } from "../../data/starter";
 import { mainCourseData } from "../../data/mainCourse";
 import { sweetDishData } from "../../data/drinks";
 import ItemCard from "../../components/ItemCard/ItemCard";
+import Drawer from "@mui/material/Drawer";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import Cart from "../Cart/Cart";
 
 const Categories = () => {
-  const [{ user }] = useStateValue();
+  const [{ user, isDrawerOpen }] = useStateValue();
 
   return (
     <div className="flex flex-col p-2">
+      <Drawer anchor="right" open={isDrawerOpen}>
+        <Cart />
+      </Drawer>
       <div className="p-2 flex flex-col md:flex-row md:justify-between md:items-center">
         <h1 className="font-serief font-bold text-gray-500 text-[22px] md:text-[25px]">
           Welcome, {user?.displayName}.

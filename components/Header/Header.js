@@ -1,5 +1,4 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -39,8 +38,18 @@ function HideOnScroll(props) {
 export default function Header(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [{ cart }, dispatch] = useStateValue();
+  const [{ cart, isDrawerOpen }, dispatch] = useStateValue();
   const router = useRouter();
+
+  // open and close the drawer
+  const handleDrawer = () => {
+    dispatch({
+      type: "OPEN_DRAWER",
+      payload: {
+        isDrawerOpen: false,
+      },
+    });
+  };
 
   // signout function
   const handleSignOut = (e) => {
@@ -119,11 +128,15 @@ export default function Header(props) {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={cart?.length} color="primary">
+          <Badge
+            badgeContent={cart?.length}
+            onClick={handleDrawer}
+            color="primary"
+          >
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
+        <p>Cart</p>
       </MenuItem>
       <MenuItem>
         <IconButton
@@ -177,7 +190,11 @@ export default function Header(props) {
                 aria-label="show 4 new mails"
                 color="inherit"
               >
-                <Badge badgeContent={cart?.length} color="primary">
+                <Badge
+                  onClick={handleDrawer}
+                  badgeContent={cart?.length}
+                  color="primary"
+                >
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>

@@ -7,7 +7,6 @@ export const initialState = {
 };
 
 const reducer = (state, action) => {
-  console.log(action);
   switch (action.type) {
     case "SET_USER":
       return {
@@ -27,8 +26,28 @@ const reducer = (state, action) => {
         cart: [...state.cart, action.item],
       };
 
+    case "REMOVE_FROM_CART":
+      let filterCart = [...state.cart];
+
+      const index = state.cart.findIndex(
+        (cartItem) => cartItem.id === action.id
+      );
+
+      if (index >= 0) {
+        filterCart.splice(index, 1);
+      } else {
+        console.alert(`Cannot delete product from (id: ${action.id})`);
+      }
+      return { ...state, cart: filterCart };
+
+    case "EMPTY_CART":
+      return {
+        ...state,
+        cart: [],
+      };
+
     // INCREASE THE AMOUNT OF THE PRODUCT
-    case INCREASE:
+    case "INCREASE":
       // looping through the cart
       let tempCart = state.cart.map((cartItem) => {
         // checking the cart product id to the action payload id
@@ -45,7 +64,7 @@ const reducer = (state, action) => {
       };
 
     // DECREASE THE AMOUNT OF THE PRODUCT
-    case DECREASE:
+    case "DECREASE":
       let newCart = [];
       // when the amount will be less than 1 then remove that item
       if (action.payload.amount === 1) {
@@ -69,7 +88,7 @@ const reducer = (state, action) => {
       };
 
     // GETTING CART TOTAL
-    case GET_TOTAL:
+    case "GET_TOTAL":
       let { total, amount } = state.cart.reduce(
         (cartTotal, cartItem) => {
           const { price, amount } = cartItem;

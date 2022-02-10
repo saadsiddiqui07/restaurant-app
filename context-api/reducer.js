@@ -3,6 +3,7 @@ export const initialState = {
   cart: [],
   user: null,
   total: 0,
+  isDrawerOpen: false,
 };
 
 const reducer = (state, action) => {
@@ -13,11 +14,19 @@ const reducer = (state, action) => {
         ...state,
         user: action.user,
       };
+
+    case "OPEN_DRAWER":
+      return {
+        ...state,
+        isDrawerOpen: action.payload,
+      };
+
     case "ADD_TO_CART":
       return {
         ...state,
         cart: [...state.cart, action.item],
       };
+
     // INCREASE THE AMOUNT OF THE PRODUCT
     case INCREASE:
       // looping through the cart

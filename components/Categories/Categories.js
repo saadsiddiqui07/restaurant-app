@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useStateValue } from "../../context-api/StateProvider";
 import { data } from "../../data/starter";
 import { mainCourseData } from "../../data/mainCourse";
@@ -9,6 +10,7 @@ import Cart from "../Cart/Cart";
 
 const Categories = () => {
   const [{ user, isDrawerOpen }] = useStateValue();
+  const router = useRouter();
 
   return (
     <div className="flex flex-col p-2">
@@ -19,7 +21,10 @@ const Categories = () => {
         <h1 className="font-serief font-bold text-gray-500 text-[22px] md:text-[25px]">
           Welcome, {user?.displayName}.
         </h1>
-        <p className="w-max bg-blue-500 text-white text-sm font-semibold p-2 rounded-md cursor-pointer">
+        <p
+          onClick={() => router.push("/orders")}
+          className="w-max bg-blue-500 text-white text-sm font-semibold p-2 rounded-md cursor-pointer"
+        >
           Check your orders <ArrowRightAltIcon />{" "}
         </p>
       </div>

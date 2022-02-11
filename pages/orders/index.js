@@ -1,5 +1,3 @@
-import React from "reacr";
-
 const Orders = () => {
   return (
     <div className="">

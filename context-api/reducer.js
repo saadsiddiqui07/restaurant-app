@@ -20,6 +20,12 @@ const reducer = (state, action) => {
         isDrawerOpen: action.payload,
       };
 
+    case "CLOSE_DRAWER":
+      return {
+        ...state,
+        isDrawerOpen: false,
+      };
+
     case "ADD_TO_CART":
       return {
         ...state,

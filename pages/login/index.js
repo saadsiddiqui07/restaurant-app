@@ -108,6 +108,14 @@ const Login = () => {
             >
               Sign In
             </Button>
+            <Button
+              type="submit"
+              fullWidth
+              className="bg-purple-500 text-white font-bold hover:bg-blue-500"
+              onClick={() => router.push("/chefLogin")}
+            >
+              Login as a Chef
+            </Button>
             <hr />
             <p className="text-center my-2 text-gray-600 ">OR</p>
             <Button
@@ -118,6 +126,7 @@ const Login = () => {
             >
               Sign In With Google <GoogleIcon className="text-lg ml-2" />
             </Button>
+            <hr />
           </Box>
         </Box>
       </Container>

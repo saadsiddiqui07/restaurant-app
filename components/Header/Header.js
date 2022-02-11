@@ -38,7 +38,7 @@ function HideOnScroll(props) {
 export default function Header(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [{ cart, isDrawerOpen }, dispatch] = useStateValue();
+  const [{ cart }, dispatch] = useStateValue();
   const router = useRouter();
 
   // open and close the drawer
@@ -46,7 +46,7 @@ export default function Header(props) {
     dispatch({
       type: "OPEN_DRAWER",
       payload: {
-        isDrawerOpen: false,
+        isDrawerOpen: true,
       },
     });
   };
@@ -127,12 +127,13 @@ export default function Header(props) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge
-            badgeContent={cart?.length}
-            onClick={handleDrawer}
-            color="primary"
-          >
+        <IconButton
+          onClick={handleDrawer}
+          size="large"
+          aria-label="show 4 new mails"
+          color="inherit"
+        >
+          <Badge badgeContent={cart?.length} color="primary">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -189,12 +190,9 @@ export default function Header(props) {
                 size="large"
                 aria-label="show 4 new mails"
                 color="inherit"
+                onClick={handleDrawer}
               >
-                <Badge
-                  onClick={handleDrawer}
-                  badgeContent={cart?.length}
-                  color="primary"
-                >
+                <Badge badgeContent={cart?.length} color="primary">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>

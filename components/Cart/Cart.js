@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useStateValue } from "../../context-api/StateProvider";
 import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
 import IconButton from "@mui/material/IconButton";
@@ -18,11 +17,12 @@ const Cart = () => {
   };
 
   return (
-    <div className="w-[500px] flex flex-col items-center">
-      <div className="w-full flex flex-row justify-between items-center p-1">
+    <div className="w-[100vw] md:w-[500px] flex flex-col items-center ">
+      <div className="w-full flex flex-row items-center px-3">
         <IconButton onClick={() => closeDrawer()}>
           <ArrowBackIcon />
         </IconButton>
+        <h1 className="text-gray-500 font-bold md:text-[20px] ">Your Cart.</h1>
       </div>
 
       {cart?.map((item, index) => (

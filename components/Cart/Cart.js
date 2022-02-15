@@ -1,11 +1,28 @@
+import { useState, useEffect } from "react";
 import { useStateValue } from "../../context-api/StateProvider";
 import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Subtotal from "../Subtotal/Subtotal";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import { db } from "../../Firebase/firebase";
 
 const Cart = () => {
-  const [{ cart, total }, dispatch] = useStateValue();
+  const [cartItems, setCartItems] = useState([]);
+  const [{ cart, total, user }, dispatch] = useStateValue();
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      query(
+        collection(db, "orders", user?.email, "dishes"),
+        orderBy("timestamp", "desc")
+      ),
+      (snapshot) => setCartItems(snapshot.docs)
+    );
+    return unsubscribe;
+  }, []);
+
+  console.log(cartItems?.length);
 
   const closeDrawer = () => {
     dispatch({

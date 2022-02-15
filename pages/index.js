@@ -3,7 +3,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useStateValue } from "../context-api/StateProvider";
 import { useRouter } from "next/router";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
 import Header from "../components/Header/Header";
 import Categories from "../components/Categories/Categories";

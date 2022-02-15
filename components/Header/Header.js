@@ -9,6 +9,7 @@ import Slide from "@mui/material/Slide";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import Avatar from "@mui/material/Avatar";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -38,7 +39,7 @@ function HideOnScroll(props) {
 export default function Header(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [{ cart }, dispatch] = useStateValue();
+  const [{ cart, user }, dispatch] = useStateValue();
   const router = useRouter();
 
   // open and close the drawer
@@ -174,25 +175,31 @@ export default function Header(props) {
 
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-                onClick={handleDrawer}
-              >
-                <Badge badgeContent={cart?.length} color="primary">
-                  <ShoppingCartIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
+              {router.pathname !== "/dashboard" ? (
+                <>
+                  <IconButton
+                    size="large"
+                    aria-label="show 4 new mails"
+                    color="inherit"
+                    onClick={handleDrawer}
+                  >
+                    <Badge badgeContent={cart?.length} color="primary">
+                      <ShoppingCartIcon />
+                    </Badge>
+                  </IconButton>
+                </>
+              ) : (
+                <IconButton
+                  size="large"
+                  aria-label="show 4 new mails"
+                  color="inherit"
+                  onClick={handleDrawer}
+                >
+                  <Badge badgeContent={cart?.length} color="primary">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+              )}
               <IconButton
                 size="large"
                 edge="end"
@@ -202,7 +209,7 @@ export default function Header(props) {
                 onClick={handleProfileMenuOpen}
                 color="inherit"
               >
-                <AccountCircle />
+                <Avatar src={user?.photoURL} />
               </IconButton>
             </Box>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>

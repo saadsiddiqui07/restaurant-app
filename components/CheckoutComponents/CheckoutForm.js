@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useRouter } from "next/router";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -21,7 +22,7 @@ function Copyright() {
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Hungerz Restaurant
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -48,6 +49,9 @@ const theme = createTheme();
 
 export default function CheckoutForm() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const router = useRouter();
+
+  const generateOrderId = Math.random().toFixed(20).substr(1, 9);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -56,6 +60,8 @@ export default function CheckoutForm() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  React.useEffect(() => {}, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -69,7 +75,7 @@ export default function CheckoutForm() {
           borderBottom: (t) => `1px solid ${t.palette.divider}`,
         }}
       >
-        <Toolbar style={{ backgroundColor: "blue" }}>
+        <Toolbar style={{ backgroundColor: "black" }}>
           <Typography variant="h6" color="white" noWrap>
             Hungerz Restaurant.
           </Typography>
@@ -97,10 +103,13 @@ export default function CheckoutForm() {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Your order number is #{generateOrderId}. Our chef has received
+                  your order, and will send you an update when your order is
+                  ready.
                 </Typography>
+                <Button onClick={() => router.push("/orders")}>
+                  Check your Orders
+                </Button>
               </React.Fragment>
             ) : (
               <React.Fragment>

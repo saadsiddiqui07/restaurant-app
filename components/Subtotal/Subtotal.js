@@ -2,9 +2,23 @@ import { useEffect } from "react";
 import { useStateValue } from "../../context-api/StateProvider";
 import { useRouter } from "next/router";
 
-const Subtotal = ({ addAllItems }) => {
+const Subtotal = () => {
   const [{ user, cart, total }, dispatch] = useStateValue();
   const router = useRouter();
+
+  // add all items of cart to firestore database
+  const addAllItems = async (e) => {
+    e.preventDefault();
+    await addDoc(collection(db, "orders"), {
+      username: user?.displayName,
+      email: user?.email,
+      items: [...cart],
+      status: false,
+      totalPay: total,
+      timestamp: serverTimestamp(),
+    });
+    router.push("/checkout");
+  };
 
   // get total on every time product amount changed
   useEffect(() => {

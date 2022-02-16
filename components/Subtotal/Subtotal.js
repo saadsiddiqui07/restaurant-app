@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useStateValue } from "../../context-api/StateProvider";
-import CurrencyFormat from "react-currency-format";
 import { useRouter } from "next/router";
 
-const Subtotal = () => {
+const Subtotal = ({ addAllItems }) => {
   const [{ user, cart, total }, dispatch] = useStateValue();
   const router = useRouter();
 
@@ -22,16 +21,10 @@ const Subtotal = () => {
       </div>
       <div className="flex font-mono border-t-2 font-bold text-lg w-full flex-row p-1 items-center justify-between">
         <h1 className="">Total</h1>
-        <CurrencyFormat
-          renderText={(value) => <p>₹ {`${value}`}</p>}
-          decimalScale={2}
-          displayType={"text"}
-          thousandSeparator={true}
-          value={total}
-        />
+        <p>{total}</p>
       </div>
       <button
-        onClick={() => router.push("/checkout")}
+        onClick={addAllItems}
         className="bg-blue-500  w-[80%] text-white rounded px-2 py-1"
       >
         Checkout

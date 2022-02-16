@@ -11,6 +11,7 @@ import { useStateValue } from "../../context-api/StateProvider";
 const CheckoutItem = ({ id, title, image, price, amount, rating }) => {
   const [{}, dispatch] = useStateValue();
 
+  // remove an item from the cart
   const removeFromCart = () => {
     dispatch({
       type: "REMOVE_FROM_CART",
@@ -18,7 +19,8 @@ const CheckoutItem = ({ id, title, image, price, amount, rating }) => {
     });
   };
 
-  const increaseItemAmount = () => {
+  // increase count of the items
+  const increaseItemCount = () => {
     dispatch({
       type: "INCREASE",
       payload: {
@@ -27,7 +29,8 @@ const CheckoutItem = ({ id, title, image, price, amount, rating }) => {
     });
   };
 
-  const decreaseItemAmount = () => {
+  // decrease count of the items
+  const decreaseItemCount = () => {
     dispatch({
       type: "DECREASE",
       payload: {
@@ -64,11 +67,11 @@ const CheckoutItem = ({ id, title, image, price, amount, rating }) => {
           Remove
         </button>
         <div className=" flex flex-row items-center">
-          <IconButton onClick={increaseItemAmount}>
+          <IconButton onClick={increaseItemCount}>
             <AddBoxIcon className="text-green-500" />
           </IconButton>
           <p className="font-bold text-[20px]">{amount}</p>
-          <IconButton onClick={decreaseItemAmount}>
+          <IconButton onClick={decreaseItemCount}>
             <IndeterminateCheckBoxIcon className="text-red-400" />
           </IconButton>
         </div>

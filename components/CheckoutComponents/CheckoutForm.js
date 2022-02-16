@@ -47,7 +47,7 @@ function getStepContent(step) {
 
 const theme = createTheme();
 
-export default function CheckoutForm() {
+const CheckoutForm = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const router = useRouter();
 
@@ -60,8 +60,6 @@ export default function CheckoutForm() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-
-  React.useEffect(() => {}, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -137,4 +135,6 @@ export default function CheckoutForm() {
       </Container>
     </ThemeProvider>
   );
-}
+};
+
+export default CheckoutForm;

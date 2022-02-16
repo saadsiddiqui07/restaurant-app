@@ -4,25 +4,11 @@ import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Subtotal from "../Subtotal/Subtotal";
-import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
   const [{ cart, total, user }, dispatch] = useStateValue();
-
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      query(
-        collection(db, "orders", user?.email, "dishes"),
-        orderBy("timestamp", "desc")
-      ),
-      (snapshot) => setCartItems(snapshot.docs)
-    );
-    return unsubscribe;
-  }, []);
-
-  console.log(cartItems?.length);
 
   const closeDrawer = () => {
     dispatch({
@@ -30,6 +16,18 @@ const Cart = () => {
       payload: {
         isDrawerOpen: false,
       },
+    });
+  };
+
+  const addAllItems = async (e) => {
+    e.preventDefault();
+    await addDoc(collection(db, "orders"), {
+      username: user?.displayName,
+      email: user?.email,
+      items: [...cart],
+      status: false,
+      totalPay: total,
+      timestamp: serverTimestamp(),
     });
   };
 
@@ -54,7 +52,7 @@ const Cart = () => {
         />
       ))}
       <div className="p-2 w-full">
-        <Subtotal />
+        <Subtotal addAllItems={addAllItems} />
       </div>
     </div>
   );

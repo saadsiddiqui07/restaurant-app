@@ -21,7 +21,7 @@ const ItemCard = ({ id, title, price, rating, image, amount }) => {
     setOpen(false);
   };
 
-  // add an item to cart
+  // add an item to the cart
   const addToCart = () => {
     dispatch({
       type: "ADD_TO_CART",

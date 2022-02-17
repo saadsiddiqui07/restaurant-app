@@ -44,7 +44,7 @@ const Subtotal = () => {
         <p>₹{total}</p>
       </div>
       <button
-        disabled={!loading}
+        disabled={loading === true}
         onClick={addAllItems}
         className="bg-blue-500  w-[80%] text-white rounded px-2 py-1"
       >

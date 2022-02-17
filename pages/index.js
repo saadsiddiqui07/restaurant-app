@@ -12,7 +12,7 @@ export default function Home() {
   const [{}, dispatch] = useStateValue();
   const router = useRouter();
 
-  // check if the user is logged in or not every time the app loads
+  // An oberver to check user sign-in state when app loads
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authUser) => {
       if (authUser) {

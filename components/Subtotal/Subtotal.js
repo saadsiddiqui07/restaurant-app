@@ -6,10 +6,12 @@ import { db } from "../../Firebase/firebase";
 
 const Subtotal = () => {
   const [{ user, cart, total }, dispatch] = useStateValue();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   // add all items of cart to firestore database
   const addAllItems = async (e) => {
+    setLoading(true);
     e.preventDefault();
     await addDoc(collection(db, "orders"), {
       username: user?.displayName,
@@ -20,6 +22,7 @@ const Subtotal = () => {
       totalPay: total,
       timestamp: serverTimestamp(),
     });
+    setLoading(false);
     router.push("/checkout");
   };
 
@@ -41,6 +44,7 @@ const Subtotal = () => {
         <p>₹{total}</p>
       </div>
       <button
+        disabled={!loading}
         onClick={addAllItems}
         className="bg-blue-500  w-[80%] text-white rounded px-2 py-1"
       >

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useStateValue } from "../../context-api/StateProvider";
 import { useRouter } from "next/router";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "../../Firebase/firebase";
 
 const Subtotal = () => {
   const [{ user, cart, total }, dispatch] = useStateValue();

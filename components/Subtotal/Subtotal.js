@@ -37,7 +37,7 @@ const Subtotal = () => {
       </div>
       <div className="flex font-mono border-t-2 font-bold text-lg w-full flex-row p-1 items-center justify-between">
         <h1 className="">Total</h1>
-        <p>{total}</p>
+        <p>₹{total}</p>
       </div>
       <button
         onClick={addAllItems}

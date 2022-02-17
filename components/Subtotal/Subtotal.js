@@ -14,6 +14,7 @@ const Subtotal = () => {
     await addDoc(collection(db, "orders"), {
       username: user?.displayName,
       email: user?.email,
+      profileImg: user?.photoURL,
       items: [...cart],
       status: false,
       totalPay: total,

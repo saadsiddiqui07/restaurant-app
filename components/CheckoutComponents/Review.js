@@ -4,7 +4,6 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
-import CurrencyFormat from "react-currency-format";
 import { useStateValue } from "../../context-api/StateProvider";
 
 export default function Review() {
@@ -26,13 +25,7 @@ export default function Review() {
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            <CurrencyFormat
-              renderText={(value) => <p>₹ {`${value}`}</p>}
-              decimalScale={2}
-              displayType={"text"}
-              thousandSeparator={true}
-              value={total}
-            />
+            ₹{total}
           </Typography>
         </ListItem>
       </List>

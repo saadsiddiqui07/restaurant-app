@@ -1,32 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useStateValue } from "../../context-api/StateProvider";
 import { useRouter } from "next/router";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "../../Firebase/firebase";
 
 const Subtotal = () => {
   const [{ user, cart, total }, dispatch] = useStateValue();
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // add all items of cart to firestore database
-  const addAllItems = async (e) => {
-    setLoading(true);
-    e.preventDefault();
-    await addDoc(collection(db, "orders"), {
-      username: user?.displayName,
-      email: user?.email,
-      profileImg: user?.photoURL,
-      items: [...cart],
-      status: "pending",
-      totalPay: total,
-      timestamp: serverTimestamp(),
-    });
-    setLoading(false);
-    router.push("/checkout");
-  };
-
-  // get total on every time product amount changed
+  // get total on every time product's amount changed or a product is added to the cart
   useEffect(() => {
     dispatch({
       type: "GET_TOTAL",
@@ -44,8 +24,7 @@ const Subtotal = () => {
         <p>₹{total}</p>
       </div>
       <button
-        disabled={loading === true}
-        onClick={addAllItems}
+        onClick={() => router.push("/checkout")}
         className="bg-blue-500  w-[80%] text-white rounded px-2 py-1"
       >
         Checkout

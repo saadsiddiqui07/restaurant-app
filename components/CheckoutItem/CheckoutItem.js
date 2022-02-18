@@ -8,8 +8,16 @@ import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { useStateValue } from "../../context-api/StateProvider";
 
-const CheckoutItem = ({ id, title, image, price, amount, rating }) => {
-  const [{}, dispatch] = useStateValue();
+const CheckoutItem = ({
+  id,
+  title,
+  image,
+  price,
+  amount,
+  rating,
+  closeDrawer,
+}) => {
+  const [{ cart }, dispatch] = useStateValue();
 
   // remove an item from the cart
   const removeFromCart = () => {
@@ -17,6 +25,9 @@ const CheckoutItem = ({ id, title, image, price, amount, rating }) => {
       type: "REMOVE_FROM_CART",
       id: id,
     });
+    if (cart?.length == 1) {
+      closeDrawer();
+    }
   };
 
   // increase count of the items
@@ -67,12 +78,13 @@ const CheckoutItem = ({ id, title, image, price, amount, rating }) => {
           Remove
         </button>
         <div className=" flex flex-row items-center">
-          <IconButton onClick={increaseItemCount}>
-            <AddBoxIcon className="text-green-500" />
-          </IconButton>
-          <p className="font-bold text-[20px]">{amount}</p>
           <IconButton onClick={decreaseItemCount}>
             <IndeterminateCheckBoxIcon className="text-red-400" />
+          </IconButton>
+          <p className="font-bold text-[20px]">{amount}</p>
+
+          <IconButton onClick={increaseItemCount}>
+            <AddBoxIcon className="text-green-500" />
           </IconButton>
         </div>
       </CardActions>

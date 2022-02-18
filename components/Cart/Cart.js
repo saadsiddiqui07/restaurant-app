@@ -35,6 +35,7 @@ const Cart = () => {
           price={item.price}
           amount={item.amount}
           rating={item.rating}
+          closeDrawer={closeDrawer}
         />
       ))}
       <div className="p-2 w-full">

@@ -30,7 +30,7 @@ function Copyright() {
   );
 }
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = ["Delivery address", "Payment details", "Review your order"];
 
 function getStepContent(step) {
   switch (step) {
@@ -50,8 +50,6 @@ const theme = createTheme();
 const CheckoutForm = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const router = useRouter();
-
-  const generateOrderId = Math.random().toFixed(20).substr(1, 9);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -101,9 +99,8 @@ const CheckoutForm = () => {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #{generateOrderId}. Our chef has received
-                  your order, and will send you an update when your order is
-                  ready.
+                  Your order number is #437948gjhvg. Our chef has received your
+                  order, and will send you an update when your order is ready.
                 </Typography>
                 <Button onClick={() => router.push("/orders")}>
                   Check your Orders
@@ -114,18 +111,20 @@ const CheckoutForm = () => {
                 {getStepContent(activeStep)}
                 <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                   {activeStep !== 0 && (
-                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                    <button
+                      className="bg-blue-600 text-white px-3 py-1 rounded-md mr-[10px] hover:bg-blue-800"
+                      onClick={handleBack}
+                    >
                       Back
-                    </Button>
+                    </button>
                   )}
 
-                  <Button
-                    variant="contained"
+                  <button
                     onClick={handleNext}
-                    sx={{ mt: 3, ml: 1 }}
+                    className="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-800"
                   >
                     {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                  </Button>
+                  </button>
                 </Box>
               </React.Fragment>
             )}

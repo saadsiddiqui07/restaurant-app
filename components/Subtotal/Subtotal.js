@@ -18,7 +18,7 @@ const Subtotal = () => {
       email: user?.email,
       profileImg: user?.photoURL,
       items: [...cart],
-      status: false,
+      status: "pending",
       totalPay: total,
       timestamp: serverTimestamp(),
     });

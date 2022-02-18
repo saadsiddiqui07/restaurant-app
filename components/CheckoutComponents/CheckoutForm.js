@@ -16,6 +16,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
+import { useStateValue } from "../../context-api/StateProvider";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "../../Firebase/firebase";
 
 function Copyright() {
   return (
@@ -48,8 +51,29 @@ function getStepContent(step) {
 const theme = createTheme();
 
 const CheckoutForm = () => {
+  const [{ user, total, cart }] = useStateValue();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [loading, setLoading] = React.useState(false);
   const router = useRouter();
+
+  // add all items of cart to firestore database
+  const addAllItems = async (e) => {
+    e.preventDefault();
+    setActiveStep(activeStep + 1);
+    if (activeStep === 2) {
+      setLoading(true);
+      await addDoc(collection(db, "orders"), {
+        username: user?.displayName,
+        email: user?.email,
+        profileImg: user?.photoURL,
+        items: [...cart],
+        status: "pending",
+        totalPay: total,
+        timestamp: serverTimestamp(),
+      });
+      setLoading(false);
+    }
+  };
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -120,7 +144,8 @@ const CheckoutForm = () => {
                   )}
 
                   <button
-                    onClick={handleNext}
+                    onClick={addAllItems}
+                    disabled={loading === true}
                     className="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-800"
                   >
                     {activeStep === steps.length - 1 ? "Place order" : "Next"}

@@ -14,7 +14,6 @@ const UserOrderCard = ({
   items,
 }) => {
   const [{ user }] = useStateValue();
-  console.log(items);
 
   // filter orders
   if (user?.email !== email) return null;
@@ -41,7 +40,7 @@ const UserOrderCard = ({
       <div className="flex flex-row p-2 items-center justify-between">
         <p className="text-md font-semibold">₹{totalPay}</p>
         <div className="flex flex-col">
-          <p className="text-gray-600 text-md font-semibold">
+          <p className="text-[12px] text-gray-600 md:text-md font-semibold">
             Order status: {status}
           </p>
           <small className="text-xs text-gray-500 italic">

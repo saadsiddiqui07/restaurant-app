@@ -17,16 +17,12 @@ const Orders = () => {
     // clean up action
     return unsubscribe;
   }, []);
-  console.log(orders);
 
   return (
     <div className="flex flex-col">
       <Header />
-
-      <h1 className="text-gray-800 text-xl font-semibold">
-        Start cooking Chef.
-      </h1>
       <div className="p-2">
+        <h1 className="text-lg font-semibold text-gray-500">Your orders</h1>
         <div className="flex flex-col m-2 items-center sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:flex flex-wrap justify-center">
           {orders.map((item) => (
             <UserOrderCard

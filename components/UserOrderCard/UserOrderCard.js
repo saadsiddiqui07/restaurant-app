@@ -40,11 +40,11 @@ const UserOrderCard = ({
       <div className="flex flex-row p-2 items-center justify-between">
         <p className="text-md font-semibold">₹{totalPay}</p>
         <div className="flex flex-col">
-          <p className="text-[12px] text-gray-600 md:text-md font-semibold">
+          <p className="text-xs text-gray-600 md:text-lg font-semibold">
             Order status: {status}
           </p>
           <small className="text-xs text-gray-500 italic">
-            Approx 15 mins for your order to get ready
+            Approx 15 mins.
           </small>
         </div>
       </div>

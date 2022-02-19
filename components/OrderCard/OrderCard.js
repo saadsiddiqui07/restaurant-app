@@ -27,12 +27,12 @@ const OrderCard = ({
 
   return (
     <div className="flex flex-col bg-gray-100 cursor-pointer shadow-lg w-[90%] m-2 p-2">
-      <div className="flex flex-row items-center justify-between p-2">
+      <div className="flex flex-row border-b-2 items-center justify-between p-2">
         <p className="font-bold text-sm text-gray-500">Order #{id}</p>
         <Avatar src={profileImg} />
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col border-b-2">
         {items.map((item, index) => (
           <OrderItem
             key={index}

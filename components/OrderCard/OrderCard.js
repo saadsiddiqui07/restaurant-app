@@ -21,10 +21,12 @@ const OrderCard = ({
 }) => {
   const [{ user, total }] = useStateValue();
   const [cancel, setCancel] = useState(false);
-  const [confirm, setConfirm] = useState(false);
+  const [accept, setAccept] = useState(false);
+  const [cooked, setCooked] = useState(false);
 
   // update the order status, if it is ready or not
   const acceptOrder = async () => {
+    setAccept(true);
     await updateDoc(doc(db, "orders", id), {
       status: "Accepted",
     });
@@ -32,6 +34,7 @@ const OrderCard = ({
 
   // cancel an order
   const cancelOrder = async () => {
+    setCancel(true);
     await updateDoc(doc(db, "orders", id), {
       status: "Cancelled",
     });
@@ -39,16 +42,14 @@ const OrderCard = ({
 
   // update an order
   const isOrderCooked = async () => {
+    setCooked(true);
     await updateDoc(doc(db, "orders", id), {
       status: "Cooked",
     });
   };
 
   return (
-    <div
-      onClick={() => console.log(id)}
-      className="flex flex-col bg-gray-100 cursor-pointer shadow-lg w-[90%] m-2 p-2"
-    >
+    <div className="flex flex-col bg-gray-100  shadow-lg w-[90%] m-2 p-2">
       <div className="flex flex-row border-b-2 items-center justify-between p-2">
         <p className="font-bold text-sm text-gray-500">Order #{id}</p>
         <Avatar src={profileImg} />
@@ -70,18 +71,42 @@ const OrderCard = ({
       <div className="flex flex-row  text-lg font-bold p-2 items-center justify-between">
         <p>₹{totalPay}</p>
         <Stack direction="row" spacing={2}>
-          <IconButton
-            onClick={cancelOrder}
-            className="text-red-500 border-2 hover:bg-red-500 hover:text-white"
-          >
-            <CloseIcon />
-          </IconButton>
-          <IconButton
-            onClick={acceptOrder}
-            className="text-green-500 border-2 hover:bg-green-500 hover:text-white"
-          >
-            <CheckIcon />
-          </IconButton>
+          {!cancel ? (
+            <IconButton
+              onClick={cancelOrder}
+              className={`text-red-500 border-2 hover:bg-red-500 hover:text-white ${
+                accept && "hidden"
+              }`}
+            >
+              <CloseIcon />
+            </IconButton>
+          ) : (
+            <p className="text-sm p-1 text-red-500 border-2 border-red-500">
+              Cancelled
+            </p>
+          )}
+          {!accept ? (
+            <IconButton
+              onClick={acceptOrder}
+              className={`text-green-500 border-2 hover:bg-green-500 hover:text-white ${
+                cancel && "hidden"
+              }`}
+            >
+              <CheckIcon />
+            </IconButton>
+          ) : (
+            <div className={`flex flex-row items-center`}>
+              <p className="text-sm p-1 text-green-500 mr-3 border-2 border-green-500">
+                Accepted
+              </p>
+              <button
+                onClick={isOrderCooked}
+                className="text-sm text-white bg-blue-500 p-2  rounded-md  hover:bg-blue-700 "
+              >
+                Cooked
+              </button>
+            </div>
+          )}
         </Stack>
       </div>
     </div>

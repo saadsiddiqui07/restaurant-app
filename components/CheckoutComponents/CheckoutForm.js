@@ -51,7 +51,7 @@ function getStepContent(step) {
 const theme = createTheme();
 
 const CheckoutForm = () => {
-  const [{ user, total, cart }] = useStateValue();
+  const [{ user, total, cart }, dispatch] = useStateValue();
   const [activeStep, setActiveStep] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
@@ -70,6 +70,13 @@ const CheckoutForm = () => {
         status: "pending",
         totalPay: total,
         timestamp: serverTimestamp(),
+      });
+      dispatch({
+        type: "EMPTY_CART",
+      });
+      dispatch({
+        type: "CLOSE_DRAWER",
+        isDrawerOpen: false,
       });
       setLoading(false);
     }

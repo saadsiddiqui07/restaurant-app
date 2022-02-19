@@ -55,7 +55,7 @@ const Dashboard = () => {
       .catch((err) => console.log(err));
   };
   return (
-    <div className=" h-screen flex flex-col">
+    <div className="h-screen flex flex-col">
       <Header />
       <div className="h-full p-2">
         <h1 className="text-gray-800 text-xl font-semibold">

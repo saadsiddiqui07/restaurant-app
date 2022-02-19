@@ -42,6 +42,13 @@ export default function Header(props) {
   const [{ cart, user }, dispatch] = useStateValue();
   const router = useRouter();
 
+  // handle routing
+  const handleRouting = () => {
+    if (router.pathname !== "/dashboard") {
+      router.push("/");
+    }
+  };
+
   // open and close the drawer
   const handleDrawer = () => {
     dispatch({
@@ -166,6 +173,7 @@ export default function Header(props) {
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}
+              onClick={handleRouting}
             >
               <RestaurantIcon />
             </IconButton>

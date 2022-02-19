@@ -24,9 +24,31 @@ const OrderCard = ({
   const [confirm, setConfirm] = useState(false);
 
   // update the order status, if it is ready or not
+  const acceptOrder = async () => {
+    await updateDoc(doc(db, "orders", id), {
+      status: "Accepted",
+    });
+  };
+
+  // cancel an order
+  const cancelOrder = async () => {
+    await updateDoc(doc(db, "orders", id), {
+      status: "Cancelled",
+    });
+  };
+
+  // update an order
+  const isOrderCooked = async () => {
+    await updateDoc(doc(db, "orders", id), {
+      status: "Cooked",
+    });
+  };
 
   return (
-    <div className="flex flex-col bg-gray-100 cursor-pointer shadow-lg w-[90%] m-2 p-2">
+    <div
+      onClick={() => console.log(id)}
+      className="flex flex-col bg-gray-100 cursor-pointer shadow-lg w-[90%] m-2 p-2"
+    >
       <div className="flex flex-row border-b-2 items-center justify-between p-2">
         <p className="font-bold text-sm text-gray-500">Order #{id}</p>
         <Avatar src={profileImg} />
@@ -49,13 +71,13 @@ const OrderCard = ({
         <p>₹{totalPay}</p>
         <Stack direction="row" spacing={2}>
           <IconButton
-            onClick={() => setCancel(!cancel)}
+            onClick={cancelOrder}
             className="text-red-500 border-2 hover:bg-red-500 hover:text-white"
           >
             <CloseIcon />
           </IconButton>
           <IconButton
-            onClick={() => setConfirm(!confirm)}
+            onClick={acceptOrder}
             className="text-green-500 border-2 hover:bg-green-500 hover:text-white"
           >
             <CheckIcon />

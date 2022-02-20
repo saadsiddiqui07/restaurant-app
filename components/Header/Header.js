@@ -155,7 +155,7 @@ export default function Header(props) {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <Avatar sx={{ height: "30px", width: "30px" }} src={user?.photoURL} />
         </IconButton>
         <p>Profile</p>
       </MenuItem>

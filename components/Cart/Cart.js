@@ -25,7 +25,6 @@ const Cart = () => {
         </IconButton>
         <h1 className="text-gray-500 font-bold md:text-[20px] ">Your Cart.</h1>
       </div>
-
       {cart?.map((item, index) => (
         <CheckoutItem
           key={index}
@@ -39,7 +38,13 @@ const Cart = () => {
         />
       ))}
       <div className="p-2 w-full">
-        <Subtotal />
+        {cart?.length > 0 ? (
+          <Subtotal />
+        ) : (
+          <p className="text-center text-xl font-bold text-gray-500 italic">
+            Your cart is empty
+          </p>
+        )}
       </div>
     </div>
   );

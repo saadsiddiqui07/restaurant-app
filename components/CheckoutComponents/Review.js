@@ -34,25 +34,20 @@ export default function Review() {
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Shipping
           </Typography>
-          <Typography gutterBottom>{user?.displayName}</Typography>
-          <Typography gutterBottom>{user?.email}</Typography>
+          <Typography gutterBottom className="font-bold text-gray-500">
+            Name: {user?.displayName}
+          </Typography>
+          <Typography gutterBottom className="font-bold text-gray-500">
+            Email: {user?.email}
+          </Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Payment details
           </Typography>
-          <Grid container>
-            {cart?.map((payment) => (
-              <React.Fragment key={payment.id}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.title}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))}
-          </Grid>
+          <Typography variant="p">Payment done using Debit Card.</Typography>
+
+          <small className="italic">Inclusive all taxes*</small>
         </Grid>
       </Grid>
     </React.Fragment>

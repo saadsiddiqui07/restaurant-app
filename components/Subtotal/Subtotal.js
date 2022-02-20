@@ -17,7 +17,9 @@ const Subtotal = () => {
     <div className="bg-gray-100 p-1 shadow-lg rounded-lg w-full flex flex-col items-center justify-center">
       <div className="flex font-semibold p-2 w-full flex-row p-1 items-center justify-between">
         <h2 className="text-sm text-gray-500">{user?.displayName}</h2>
-        <h3 className="text-sm text-gray-500">Cart: {cart?.length} items</h3>
+        <h3 className="text-sm text-gray-500">
+          Cart: {cart?.length} {cart?.length <= 1 ? "Item" : "Items"}
+        </h3>
       </div>
       <div className="flex font-mono border-t-2 font-bold text-lg w-full flex-row p-1 items-center justify-between">
         <h1 className="">Total</h1>

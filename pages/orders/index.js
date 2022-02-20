@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Header from "../../components/Header/Header";
 import { onSnapshot, collection, orderBy } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
@@ -20,6 +21,9 @@ const Orders = () => {
 
   return (
     <div className="flex flex-col">
+      <Head>
+        <title>Your Orders: Hungerz Restaurant</title>
+      </Head>
       <Header />
       <div className="p-2">
         <h1 className="text-lg font-semibold text-gray-500 italic text-center">

@@ -130,8 +130,8 @@ const CheckoutForm = () => {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #437948gjhvg. Our chef has received your
-                  order, and will send you an update when your order is ready.
+                  Your order has been sent. Our chef has received your order,
+                  and will send you an update when your order is ready.
                 </Typography>
                 <Button onClick={() => router.push("/orders")}>
                   Check your Orders

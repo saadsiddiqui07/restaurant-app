@@ -4,7 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
-import { useStateValue } from "../../context-api/StateProvider";
 import OrderItem from "../OrderItem/OrderItem";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
@@ -19,7 +18,6 @@ const OrderCard = ({
   timestamp,
   items,
 }) => {
-  const [{ user, total }] = useStateValue();
   const [cancel, setCancel] = useState(false);
   const [accept, setAccept] = useState(false);
   const [cooked, setCooked] = useState(false);
@@ -48,6 +46,11 @@ const OrderCard = ({
     });
   };
 
+  // identifiers
+  const orderIsAccepted = status === "Accepted";
+  const orderIsCancelled = status === "Cancelled";
+  const orderIsCooked = status === "Cooked";
+
   return (
     <div className="flex flex-col bg-gray-100  shadow-lg w-[90%] m-2 p-2">
       <div className="flex flex-row border-b-2 items-center justify-between p-2">
@@ -70,44 +73,48 @@ const OrderCard = ({
       </div>
       <div className="flex flex-row  text-lg font-bold p-2 items-center justify-between">
         <p>₹{totalPay}</p>
-        <Stack direction="row" spacing={2}>
-          {!cancel ? (
-            <IconButton
-              onClick={cancelOrder}
-              className={`text-red-500 border-2 hover:bg-red-500 hover:text-white ${
-                accept && "hidden"
-              }`}
-            >
-              <CloseIcon />
-            </IconButton>
-          ) : (
-            <p className="text-sm p-1 text-red-500 border-2 border-red-500">
-              Cancelled
-            </p>
-          )}
-          {!accept ? (
-            <IconButton
-              onClick={acceptOrder}
-              className={`text-green-500 border-2 hover:bg-green-500 hover:text-white ${
-                cancel && "hidden"
-              }`}
-            >
-              <CheckIcon />
-            </IconButton>
-          ) : (
-            <div className={`flex flex-row items-center`}>
-              <p className="text-sm p-1 text-green-500 mr-3 border-2 border-green-500">
-                Accepted
-              </p>
-              <button
-                onClick={isOrderCooked}
-                className="text-sm text-white bg-blue-500 p-2  rounded-md  hover:bg-blue-700 "
+        {orderIsCooked ? (
+          <p>Order is cooked</p>
+        ) : (
+          <Stack direction="row" spacing={2}>
+            {!orderIsCancelled ? (
+              <IconButton
+                onClick={cancelOrder}
+                className={`text-red-500 border-2 hover:bg-red-500 hover:text-white ${
+                  orderIsAccepted && "hidden"
+                }`}
               >
-                Cooked
-              </button>
-            </div>
-          )}
-        </Stack>
+                <CloseIcon />
+              </IconButton>
+            ) : (
+              <p className="text-sm p-1 text-red-500 border-2 border-red-500">
+                Cancelled
+              </p>
+            )}
+            {!orderIsAccepted ? (
+              <IconButton
+                onClick={acceptOrder}
+                className={`text-green-500 border-2 hover:bg-green-500 hover:text-white ${
+                  orderIsCancelled && "hidden"
+                }`}
+              >
+                <CheckIcon />
+              </IconButton>
+            ) : (
+              <div className={`flex flex-row items-center`}>
+                <p className="text-sm p-1 text-green-500 mr-3 border-2 border-green-500">
+                  Accepted
+                </p>
+                <button
+                  onClick={isOrderCooked}
+                  className="text-sm text-white bg-blue-500 p-2  rounded-md  hover:bg-blue-700 "
+                >
+                  Cooked
+                </button>
+              </div>
+            )}
+          </Stack>
+        )}
       </div>
     </div>
   );

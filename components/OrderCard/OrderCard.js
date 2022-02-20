@@ -102,7 +102,7 @@ const OrderCard = ({
               </IconButton>
             ) : (
               <div className={`flex flex-row items-center`}>
-                <p className="text-sm p-1 text-green-500 mr-3 border-2 border-green-500">
+                <p className="text-sm p-1 rounded text-green-500 mr-3 border-2 border-green-500">
                   Accepted
                 </p>
                 <button

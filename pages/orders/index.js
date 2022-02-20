@@ -22,7 +22,9 @@ const Orders = () => {
     <div className="flex flex-col">
       <Header />
       <div className="p-2">
-        <h1 className="text-lg font-semibold text-gray-500">Your orders</h1>
+        <h1 className="text-lg font-semibold text-gray-500 italic text-center">
+          Your orders
+        </h1>
         <div className="flex flex-col m-2 items-center sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:flex flex-wrap justify-center">
           {orders.map((item) => (
             <UserOrderCard

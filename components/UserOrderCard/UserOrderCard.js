@@ -1,7 +1,9 @@
 import { useStateValue } from "../../context-api/StateProvider";
 import Avatar from "@mui/material/Avatar";
-import CircularProgress from "@mui/material/CircularProgress";
+import Button from "@mui/material/Button";
 import OrderItem from "../OrderItem/OrderItem";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../Firebase/firebase";
 
 const UserOrderCard = ({
   id,
@@ -15,8 +17,19 @@ const UserOrderCard = ({
 }) => {
   const [{ user }] = useStateValue();
 
+  const handleCancelOrder = (e) => {
+    e.stopPropagation();
+    deleteDoc(doc(db, "orders", id));
+  };
+
   // filter orders
   if (user?.email !== email) return null;
+
+  // identifiers
+  const orderIsAccepted = status === "Accepted";
+  const orderIsCancelled = status === "Cancelled";
+  const orderIsCooked = status === "Cooked";
+
   return (
     <div className="flex flex-col bg-gray-100 cursor-pointer shadow-lg w-[90%] m-2 p-2">
       <div className="flex flex-row border-b-2 items-center justify-between p-2">
@@ -42,19 +55,25 @@ const UserOrderCard = ({
           <p className="text-xs text-gray-600 md:text-lg font-semibold">
             Order status: {status}
           </p>
-
-          {status === "Accepted" ? (
-            <small className="text-xs text-gray-500 italic">
-              Approx 15 mins.
-            </small>
-          ) : (
-            <small className="text-xs text-gray-500 italic">
-              Waiting for chef to accept order.
-            </small>
-          )}
+          <small className="text-xs text-gray-500 italic">
+            {orderIsAccepted
+              ? "Your order in making"
+              : orderIsCooked
+              ? "Your order is on the way!"
+              : orderIsCancelled
+              ? "The Chef has cancelled your order"
+              : "Waiting for chef to accept order."}
+          </small>
         </div>
+
         <p className="text-md font-semibold">₹{totalPay}</p>
       </div>
+
+      {status === "Pending" && (
+        <Button color="error" onClick={handleCancelOrder}>
+          Cancel
+        </Button>
+      )}
     </div>
   );
 };

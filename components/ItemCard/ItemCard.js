@@ -13,6 +13,7 @@ import { useStateValue } from "../../context-api/StateProvider";
 const ItemCard = ({ id, title, price, rating, image, amount }) => {
   const [{}, dispatch] = useStateValue();
   const [open, setOpen] = React.useState(false);
+  const [added, setAdded] = React.useState(false);
 
   const handleClose = (reason) => {
     if (reason === "clickaway") {
@@ -23,18 +24,28 @@ const ItemCard = ({ id, title, price, rating, image, amount }) => {
 
   // add an item to the cart
   const addToCart = () => {
-    dispatch({
-      type: "ADD_TO_CART",
-      item: {
-        id,
-        title,
-        price,
-        rating,
-        image,
-        amount,
-      },
-    });
-    setOpen(true);
+    if (added) {
+      dispatch({
+        type: "INCREASE",
+        payload: {
+          id: id,
+        },
+      });
+    } else {
+      dispatch({
+        type: "ADD_TO_CART",
+        item: {
+          id,
+          title,
+          price,
+          rating,
+          image,
+          amount,
+        },
+      });
+      setAdded(true);
+      setOpen(true);
+    }
   };
 
   const Alert = React.forwardRef(function Alert(props, ref) {

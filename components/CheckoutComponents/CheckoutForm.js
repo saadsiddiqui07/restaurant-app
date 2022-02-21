@@ -67,7 +67,7 @@ const CheckoutForm = () => {
         email: user?.email,
         profileImg: user?.photoURL,
         items: [...cart],
-        status: "pending",
+        status: "Pending",
         totalPay: total,
         timestamp: serverTimestamp(),
       });

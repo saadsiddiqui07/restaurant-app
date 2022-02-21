@@ -82,7 +82,6 @@ const CheckoutItem = ({
             <IndeterminateCheckBoxIcon className="text-red-400" />
           </IconButton>
           <p className="font-bold text-[20px]">{amount}</p>
-
           <IconButton onClick={increaseItemCount}>
             <AddBoxIcon className="text-green-500" />
           </IconButton>

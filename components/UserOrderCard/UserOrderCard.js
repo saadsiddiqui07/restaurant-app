@@ -17,6 +17,7 @@ const UserOrderCard = ({
 }) => {
   const [{ user }] = useStateValue();
 
+  // cancel an order
   const handleCancelOrder = (e) => {
     e.stopPropagation();
     deleteDoc(doc(db, "orders", id));
@@ -31,7 +32,12 @@ const UserOrderCard = ({
   const orderIsCooked = status === "Cooked";
 
   return (
-    <div className="flex flex-col bg-gray-100 cursor-pointer shadow-lg w-[90%] m-2 p-2">
+    <div
+      aria-disabled={orderIsCancelled}
+      className={`flex flex-col cursor-pointer shadow-lg w-[90%] m-2 p-2 ${
+        orderIsCancelled && "bg-gray-200"
+      }`}
+    >
       <div className="flex flex-row border-b-2 items-center justify-between p-2">
         <p className="font-bold text-sm text-gray-500">Order: #{id}</p>
         <Avatar src={profileImg} />
@@ -55,14 +61,22 @@ const UserOrderCard = ({
           <p className="text-xs text-gray-600 md:text-lg font-semibold">
             Order status: {status}
           </p>
-          <small className="text-xs text-gray-500 italic">
-            {orderIsAccepted
-              ? "Your order in making"
-              : orderIsCooked
-              ? "Your order is on the way!"
-              : orderIsCancelled
-              ? "The Chef has cancelled your order"
-              : "Waiting for chef to accept order."}
+          <small className="text-xs  italic">
+            {orderIsAccepted ? (
+              <p className="text-green-500 font-bold">
+                Order accepted & in making
+              </p>
+            ) : orderIsCooked ? (
+              <p className="text-blue-500 font-bold">
+                Your order is on the way!
+              </p>
+            ) : orderIsCancelled ? (
+              <p className="text-red-500 font-bold">
+                The Chef has cancelled your order
+              </p>
+            ) : (
+              "Waiting for chef to accept order."
+            )}
           </small>
         </div>
 

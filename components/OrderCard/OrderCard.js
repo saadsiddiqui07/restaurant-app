@@ -17,6 +17,7 @@ const OrderCard = ({
   totalPay,
   timestamp,
   items,
+  feedback,
 }) => {
   const [cancel, setCancel] = useState(false);
   const [accept, setAccept] = useState(false);
@@ -116,6 +117,14 @@ const OrderCard = ({
           </Stack>
         )}
       </div>
+      {feedback && (
+        <div className="border-t-2">
+          <h4 className="font-semibold">Feedback</h4>
+          <p className="text-sm italic font-bold text-gray-600">
+            {username}: {feedback}
+          </p>
+        </div>
+      )}
     </div>
   );
 };

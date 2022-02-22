@@ -44,7 +44,7 @@ export default function Header(props) {
 
   // handle routing
   const handleRouting = () => {
-    if (router.pathname !== "/dashboard") {
+    if (router.pathname !== "/dashboard" || router.pathname === "/dish") {
       router.push("/");
     }
   };

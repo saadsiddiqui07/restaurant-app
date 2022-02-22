@@ -78,6 +78,7 @@ const Dashboard = () => {
                 profileImg={item.data().profileImg}
                 status={item.data().status}
                 totalPay={item.data().totalPay}
+                feedback={item.data().feedback}
                 timestamp={item.data().timestamp}
                 items={item.data().items}
               />

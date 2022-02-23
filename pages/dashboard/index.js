@@ -8,6 +8,8 @@ import OrderCard from "../../components/OrderCard/OrderCard";
 import { onSnapshot, orderBy, collection } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../../Firebase/firebase";
+import Button from "@mui/material/Button";
+import AddBox from "@mui/icons-material/AddBox";
 
 const Dashboard = () => {
   const [{ user }, dispatch] = useStateValue();
@@ -64,10 +66,18 @@ const Dashboard = () => {
       </Head>
       <Header />
       <div className="h-full p-2">
-        <h1 className="text-gray-800 text-xl font-semibold">
-          Chef {user?.displayName}, get started!
-        </h1>
-        <button onClick={() => router.push("/dish")}>Add new dish</button>
+        <div className=" flex flex-row items-center justify-between px-4">
+          <h1 className="text-sm text-gray-800 md:text-xl font-semibold">
+            Chef {user?.displayName}, start cooking!
+          </h1>
+          <Button
+            onClick={() => router.push("/dish")}
+            variant="outlined"
+            endIcon={<AddBox />}
+          >
+            Add new Dish
+          </Button>
+        </div>
         <div className="p-2">
           <div className="flex flex-col m-2 items-center sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:flex flex-wrap justify-center">
             {cartItems.map((item) => (

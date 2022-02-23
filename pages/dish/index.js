@@ -1,16 +1,49 @@
+import { Button, TextField } from "@mui/material";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import Header from "../../components/Header/Header";
+import { db } from "../../Firebase/firebase";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
 
 const Dish = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
-  const [price, setPrice] = useState(0);
-  const [amount, setAmount] = useState(1);
+  const [price, setPrice] = useState();
+  const [category, setCategory] = useState("");
+  const router = useRouter();
 
-  const handleAddNewDish = (e) => {
-    console.log("Added new dish");
+  const handleAddNewDish = async (e) => {
+    await addDoc(collection(db, "dishes"), {
+      title: title,
+      image: image,
+      category: category,
+      amount: 1,
+      rating: "5/5",
+      price: Math.floor(parseInt(price)),
+      timestamp: serverTimestamp(),
+    });
+    router.push("/dashboard");
+    setCategory("");
+    setTitle("");
+    setImage("");
+    setPrice("");
   };
+
+  function Copyright() {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center">
+        {"Copyright © "}
+        <Link color="inherit" href="https://mui.com/">
+          Hungerz Restaurant
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+    );
+  }
 
   return (
     <div className="h-screen flex flex-col">
@@ -21,29 +54,59 @@ const Dish = () => {
       </Head>
       <Header />
       <div className="h-full p-2 flex flex-col justify-center items-center ">
-        <input
-          className="m-4 p-2"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter title"
-        />
+        <h1 className="text-lg font-bold md:text-2xl">Add a new dish!</h1>
+        <form className="flex flex-col w-[90%] p-2 h-full md:w-[70%]">
+          <TextField
+            label="Category"
+            placeholder="Enter category"
+            variant="outlined"
+            className="m-3"
+            required
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          />
 
-        <input
-          className="m-4 p-2"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-          placeholder="Enter image"
-        />
+          <TextField
+            id="outlined-basic"
+            label="Dish Title"
+            variant="outlined"
+            className="m-3"
+            required
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <TextField
+            label="Image"
+            placeholder="Enter image url"
+            variant="outlined"
+            className="m-3"
+            required
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+          />
 
-        <input
-          className="m-4 p-2"
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          placeholder="Enter price"
-        />
+          <TextField
+            id="outlined-basic"
+            type="number"
+            label="Price"
+            placeholder="Enter amount of the Dish"
+            variant="outlined"
+            className="m-3"
+            required
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
+          <Button
+            disabled={!title || !category || !image || !price}
+            onClick={handleAddNewDish}
+            variant="outlined"
+            className="m-3"
+          >
+            Add
+          </Button>
+        </form>
 
-        <button onClick={handleAddNewDish}>Add new dish</button>
+        <Copyright />
       </div>
     </div>
   );

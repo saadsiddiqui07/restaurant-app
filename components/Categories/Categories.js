@@ -1,16 +1,24 @@
 import { useRouter } from "next/router";
 import { useStateValue } from "../../context-api/StateProvider";
-import { data } from "../../data/starter";
-import { mainCourseData } from "../../data/mainCourse";
-import { sweetDishData } from "../../data/drinks";
 import ItemCard from "../../components/ItemCard/ItemCard";
 import Drawer from "@mui/material/Drawer";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import Cart from "../Cart/Cart";
+import { useEffect, useState } from "react";
+import { onSnapshot, collection } from "firebase/firestore";
+import { db } from "../../Firebase/firebase";
 
 const Categories = () => {
   const [{ user, isDrawerOpen }] = useStateValue();
+  const [dishes, setDishes] = useState([]);
   const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "dishes"), (snapshot) =>
+      setDishes(snapshot.docs)
+    );
+    return unsubscribe;
+  }, []);
 
   return (
     <div className="flex flex-col p-2">
@@ -30,20 +38,23 @@ const Categories = () => {
       </div>
       <hr />
       <div className=" flex flex-col  m-1 p-2">
-        <h1 className="italic font-semibold text-[25px]">Starter</h1>
+        <h1 className="italic font-semibold text-[25px]">Dishes</h1>
         <div className="flex flex-col m-2 items-center sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:flex flex-wrap justify-center">
-          {data.map((item, index) => (
+          {dishes.map((item) => (
             <ItemCard
-              key={index}
+              key={item.id}
               id={item.id}
-              image={item.image}
-              title={item.title}
-              price={item.price}
-              rating={item.rating}
-              amount={item.amount}
+              image={item.data().image}
+              title={item.data().title}
+              price={item.data().price}
+              rating={item.data().rating}
+              amount={item.data().amount}
+              timestamp={item.data().timestamp}
             />
           ))}
         </div>
+        {/*
+
         <h1 className="italic font-semibold text-[25px]">Main Course</h1>
         <div className="flex flex-col m-2 items-center sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:flex flex-wrap justify-center">
           {mainCourseData.map((item, index) => (
@@ -73,6 +84,7 @@ const Categories = () => {
             />
           ))}
         </div>
+              */}
       </div>
     </div>
   );

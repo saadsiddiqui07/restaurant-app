@@ -8,8 +8,10 @@ import OrderCard from "../../components/OrderCard/OrderCard";
 import { onSnapshot, orderBy, collection } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../../Firebase/firebase";
-import Button from "@mui/material/Button";
-import AddBox from "@mui/icons-material/AddBox";
+import Box from "@mui/material/Box";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 const Dashboard = () => {
   const [{ user }, dispatch] = useStateValue();
@@ -66,17 +68,17 @@ const Dashboard = () => {
       </Head>
       <Header />
       <div className="h-full p-2">
-        <div className=" flex flex-row items-center justify-between px-4">
-          <h1 className="text-sm text-gray-800 md:text-xl font-semibold">
+        <div className=" p-2 flex flex-col md:flex-row md:justify-between md:items-center px-4">
+          <h1 className="text-lg text-gray-800 md:text-xl font-semibold">
             Chef {user?.displayName}, start cooking!
           </h1>
-          <Button
-            onClick={() => router.push("/dish")}
-            variant="outlined"
-            endIcon={<AddBox />}
+
+          <p
+            onClick={() => router.push("/available")}
+            className="w-max bg-blue-500 text-white text-sm font-semibold p-2 rounded-md cursor-pointer"
           >
-            Add new Dish
-          </Button>
+            Check Available Dishes <ArrowRightAltIcon />{" "}
+          </p>
         </div>
         <div className="p-2">
           <div className="flex flex-col m-2 items-center sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:flex flex-wrap justify-center">
@@ -97,6 +99,18 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      <Box
+        className="fixed right-0 bottom-1 z-50"
+        sx={{ "& > :not(style)": { m: 1 } }}
+      >
+        <Fab
+          onClick={() => router.push("/dish")}
+          className="bg-blue-500 hover:bg-blue-500"
+          aria-label="add"
+        >
+          <AddIcon className="text-white" />
+        </Fab>
+      </Box>
     </div>
   );
 };

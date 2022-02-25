@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useRouter } from "next/router";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -8,18 +9,27 @@ import Typography from "@mui/material/Typography";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import AddIcon from "@mui/icons-material/Add";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useStateValue } from "../../context-api/StateProvider";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../Firebase/firebase";
 
 const ItemCard = ({ id, title, price, rating, image, amount }) => {
   const [{}, dispatch] = useStateValue();
   const [open, setOpen] = React.useState(false);
   const [added, setAdded] = React.useState(false);
+  const router = useRouter();
 
   const handleClose = (reason) => {
     if (reason === "clickaway") {
       return;
     }
     setOpen(false);
+  };
+
+  const deleteItem = (e) => {
+    e.stopPropagation();
+    deleteDoc(doc(db, "dishes", id));
   };
 
   // add an item to the cart
@@ -86,9 +96,19 @@ const ItemCard = ({ id, title, price, rating, image, amount }) => {
         <span className="p-2 bg-purple-500 text-white font-bold text-xs rounded-md">
           ★{rating}
         </span>
-        <Button color="primary" endIcon={<AddIcon />} onClick={addToCart}>
-          Add
-        </Button>
+        {router.pathname === "/available" ? (
+          <Button
+            color="error"
+            endIcon={<RemoveCircleOutlineIcon />}
+            onClick={deleteItem}
+          >
+            Remove
+          </Button>
+        ) : (
+          <Button color="primary" endIcon={<AddIcon />} onClick={addToCart}>
+            Add
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

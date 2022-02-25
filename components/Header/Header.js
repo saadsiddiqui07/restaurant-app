@@ -28,7 +28,6 @@ function HideOnScroll(props) {
   const trigger = useScrollTrigger({
     target: window ? window() : undefined,
   });
-
   return (
     <Slide appear={false} direction="down" in={!trigger}>
       {children}
@@ -42,9 +41,15 @@ export default function Header(props) {
   const [{ cart, user }, dispatch] = useStateValue();
   const router = useRouter();
 
+  // identifier
+  const isChefLoggedIn =
+    router.pathname !== "/dashboard" &&
+    router.pathname !== "/dish" &&
+    router.pathname !== "/available";
+
   // handle routing
   const handleRouting = () => {
-    if (router.pathname !== "/dashboard" && router.pathname !== "/dish") {
+    if (isChefLoggedIn) {
       router.push("/");
     }
   };
@@ -183,7 +188,7 @@ export default function Header(props) {
 
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              {router.pathname !== "/dashboard" ? (
+              {isChefLoggedIn && (
                 <>
                   <IconButton
                     size="large"
@@ -196,17 +201,6 @@ export default function Header(props) {
                     </Badge>
                   </IconButton>
                 </>
-              ) : (
-                <IconButton
-                  size="large"
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                  onClick={handleDrawer}
-                >
-                  <Badge badgeContent={cart?.length} color="primary">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
               )}
               <IconButton
                 size="large"

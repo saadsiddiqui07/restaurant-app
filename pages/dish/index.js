@@ -58,7 +58,7 @@ const Dish = () => {
         <form className="flex flex-col w-[90%] p-2 h-full md:w-[70%]">
           <TextField
             label="Category"
-            placeholder="Enter category"
+            placeholder="Enter category: Main Course, Starter or Sweet Dish."
             variant="outlined"
             className="m-3"
             required
@@ -69,6 +69,7 @@ const Dish = () => {
           <TextField
             id="outlined-basic"
             label="Dish Title"
+            placeholder="Enter the title of the dish"
             variant="outlined"
             className="m-3"
             required

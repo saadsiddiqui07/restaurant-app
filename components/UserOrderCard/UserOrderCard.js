@@ -23,6 +23,7 @@ const UserOrderCard = ({
   totalPay,
   timestamp,
   items,
+  feedback,
 }) => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -57,7 +58,6 @@ const UserOrderCard = ({
     });
     setOpen(false);
     setInput("");
-    router.push("/");
     setDone(true);
   };
 
@@ -126,7 +126,7 @@ const UserOrderCard = ({
           />
         ))}
       </div>
-      <div className="flex flex-row p-2 items-center justify-between">
+      <div className="flex flex-row p-2 border-b-2 items-center justify-between">
         <div className="flex flex-col">
           <p className="text-xs text-gray-600 md:text-lg font-semibold">
             Order status: {status}
@@ -137,9 +137,7 @@ const UserOrderCard = ({
                 Order accepted & in making
               </p>
             ) : orderIsCooked ? (
-              <p className="text-blue-500 font-bold">
-                Your order is on the way!
-              </p>
+              <p className="text-blue-500 font-bold">Kill your cravings now!</p>
             ) : orderIsCancelled ? (
               <p className="text-red-500 font-bold">
                 The Chef has cancelled your order
@@ -159,16 +157,22 @@ const UserOrderCard = ({
         </Button>
       )}
       {orderIsCooked && (
-        <Button
-          disabled={done}
-          color="primary"
-          variant="outlined"
-          onClick={openFeedBackForm}
-        >
-          {!done
-            ? "Would you like to give us a feedback?"
-            : "Thankyou for the feedback"}
-        </Button>
+        <>
+          {!feedback ? (
+            <Button
+              disabled={feedback}
+              color="primary"
+              variant="outlined"
+              onClick={openFeedBackForm}
+            >
+              Would you like to give us a feedback?
+            </Button>
+          ) : (
+            <p className="font-bold text-sm p-2 text-gray-600">
+              Your feedback: {feedback}
+            </p>
+          )}
+        </>
       )}
     </div>
   );

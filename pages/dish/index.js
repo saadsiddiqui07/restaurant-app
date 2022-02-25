@@ -25,7 +25,7 @@ const Dish = () => {
       price: Math.floor(parseInt(price)),
       timestamp: serverTimestamp(),
     });
-    router.push("/dashboard");
+    router.push("/available");
     setCategory("");
     setTitle("");
     setImage("");

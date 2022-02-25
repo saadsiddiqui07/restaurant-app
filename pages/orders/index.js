@@ -12,7 +12,7 @@ const Orders = () => {
   useEffect(() => {
     const unsubscribe = onSnapshot(
       collection(db, "orders"),
-      orderBy("timestamp", "desc"),
+      orderBy("timestamp", "asc"),
       (snapshot) => setOrders(snapshot.docs)
     );
     // clean up action
@@ -41,6 +41,7 @@ const Orders = () => {
               totalPay={item.data().totalPay}
               timestamp={item.data().timestamp}
               items={item.data().items}
+              feedback={item.data().feedback}
             />
           ))}
         </div>

@@ -8,9 +8,6 @@ import OrderCard from "../../components/OrderCard/OrderCard";
 import { onSnapshot, orderBy, collection } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../../Firebase/firebase";
-import Box from "@mui/material/Box";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 const Dashboard = () => {
@@ -99,18 +96,6 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <Box
-        className="fixed right-0 bottom-1 z-50"
-        sx={{ "& > :not(style)": { m: 1 } }}
-      >
-        <Fab
-          onClick={() => router.push("/dish")}
-          className="bg-blue-500 hover:bg-blue-500"
-          aria-label="add"
-        >
-          <AddIcon className="text-white" />
-        </Fab>
-      </Box>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useState, forwardRef } from "react";
 import { useStateValue } from "../../context-api/StateProvider";
 import Avatar from "@mui/material/Avatar";
@@ -12,7 +11,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
-import Slide from "@mui/material/Slide";
 
 const UserOrderCard = ({
   id,
@@ -29,7 +27,6 @@ const UserOrderCard = ({
   const [input, setInput] = useState("");
   const [done, setDone] = useState(false);
   const [{ user }] = useStateValue();
-  const router = useRouter();
 
   // identifiers
   const orderIsAccepted = status === "Accepted";
@@ -63,11 +60,6 @@ const UserOrderCard = ({
 
   // filter orders
   if (user?.email !== email) return null;
-
-  // Transition animation for dialog
-  const Transition = forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
 
   return (
     <div
@@ -160,7 +152,6 @@ const UserOrderCard = ({
         <>
           {!feedback ? (
             <Button
-              disabled={feedback}
               color="primary"
               variant="outlined"
               onClick={openFeedBackForm}
@@ -169,7 +160,7 @@ const UserOrderCard = ({
             </Button>
           ) : (
             <p className="font-bold text-sm p-2 text-gray-600">
-              Your feedback: {feedback}
+              Thankyou for your feedback!
             </p>
           )}
         </>

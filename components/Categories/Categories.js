@@ -53,38 +53,6 @@ const Categories = () => {
             />
           ))}
         </div>
-        {/*
-
-        <h1 className="italic font-semibold text-[25px]">Main Course</h1>
-        <div className="flex flex-col m-2 items-center sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:flex flex-wrap justify-center">
-          {mainCourseData.map((item, index) => (
-            <ItemCard
-              key={index}
-              id={item.id}
-              image={item.image}
-              title={item.title}
-              price={item.price}
-              rating={item.rating}
-              amount={item.amount}
-            />
-          ))}
-        </div>
-
-        <h1 className="italic font-semibold text-[25px]">Sweet Dishes</h1>
-        <div className="flex flex-col m-2 items-center sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:flex flex-wrap justify-center">
-          {sweetDishData.map((item, index) => (
-            <ItemCard
-              key={index}
-              id={item.id}
-              image={item.image}
-              title={item.title}
-              price={item.price}
-              rating={item.rating}
-              amount={item.amount}
-            />
-          ))}
-        </div>
-              */}
       </div>
     </div>
   );

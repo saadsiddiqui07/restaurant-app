@@ -1,16 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
 import { useRouter } from "next/router";
 import { useStateValue } from "../../context-api/StateProvider";
-import { Button, TextField, Box, Typography, Container } from "@mui/material";
+import { Button, Box, Typography, Container } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../Firebase/firebase";
 
 const Chef = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [{}, dispatch] = useStateValue();
   const router = useRouter();
 

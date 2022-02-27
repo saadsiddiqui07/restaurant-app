@@ -74,39 +74,7 @@ const Chef = () => {
             Sign in as a chef.
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
-            <TextField
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-            />
-
-            <Button
-              type="submit"
-              fullWidth
-              sx={{ mt: 3, mb: 2 }}
-              className="bg-black text-white font-bold border-2  hover:bg-green-400"
-            >
-              Sign In
-            </Button>
             <hr />
-            <p className="text-center my-2 text-gray-600 ">OR</p>
             <Button
               type="submit"
               fullWidth

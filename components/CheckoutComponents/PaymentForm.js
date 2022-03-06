@@ -54,10 +54,6 @@ export default function PaymentForm() {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
-          />
         </Grid>
       </Grid>
     </React.Fragment>

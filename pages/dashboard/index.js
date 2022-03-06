@@ -43,19 +43,6 @@ const Dashboard = () => {
     return unsubscribe;
   }, []);
 
-  // function to logout user
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        dispatch({
-          type: "SET_USER",
-          user: null,
-        });
-        router.push("/login");
-        console.log("User signed out successfully");
-      })
-      .catch((err) => console.log(err));
-  };
   return (
     <div className="h-screen flex flex-col">
       <Head>

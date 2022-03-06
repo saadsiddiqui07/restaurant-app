@@ -82,10 +82,6 @@ const CheckoutForm = () => {
     }
   };
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
-
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };

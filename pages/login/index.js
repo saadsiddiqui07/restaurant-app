@@ -28,7 +28,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex w-[100%]  bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 h-[100vh]  items-center">
+    <div className="flex w-[100%] h-[100vh] bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 items-center">
       <Head>
         <title>Login</title>
       </Head>

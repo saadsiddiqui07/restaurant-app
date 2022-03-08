@@ -27,7 +27,7 @@ const Chef = () => {
   };
 
   return (
-    <div className="flex w-[100%] h-[100vh] items-center">
+    <div className="flex w-[100%] h-[100vh] bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 items-center">
       <Head>
         <title>Login as a Chef</title>
       </Head>
@@ -37,7 +37,7 @@ const Chef = () => {
         maxWidth="xs"
       >
         <Box className="grid h-[100%] gap-2 content-center">
-          <h1 className="font-serief font-bold text-[22px] text-gray-500">
+          <h1 className="font-serief text-white font-bold text-[25px] text-gray-500">
             Hungerz Restaurant
           </h1>
           <Image
@@ -61,13 +61,13 @@ const Chef = () => {
           }}
         >
           <Typography
-            className="text-gray-700 text-center"
+            className="text-white text-center"
             component="h1"
             variant="h4"
           >
             Welcome to your kitchen.
           </Typography>
-          <Typography component="h1" className="text-gray-600" variant="h5">
+          <Typography component="h1" className="text-white" variant="h5">
             Sign in as a chef.
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>

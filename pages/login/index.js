@@ -6,6 +6,7 @@ import { Button, Box, Typography, Container } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../Firebase/firebase";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
 
 const Login = () => {
   const [{}, dispatch] = useStateValue();
@@ -27,7 +28,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex w-[100%] h-[100vh]  items-center">
+    <div className="flex w-[100%]  bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 h-[100vh]  items-center">
       <Head>
         <title>Login</title>
       </Head>
@@ -37,7 +38,7 @@ const Login = () => {
         maxWidth="xs"
       >
         <Box className="grid h-[100%] gap-2 content-center">
-          <h1 className="font-serief font-bold text-[22px] text-gray-500">
+          <h1 className="font-serief font-bold text-[25px] text-white">
             Hungerz Restaurant
           </h1>
           <Image
@@ -60,20 +61,21 @@ const Login = () => {
           }}
         >
           <Typography
-            className="text-gray-700 text-center"
+            className="text-white text-center"
             component="h1"
             variant="h3"
           >
             Welcome
           </Typography>
-          <Typography component="h1" variant="h5">
+          <Typography className="text-white" component="h1" variant="h5">
             Sign in
           </Typography>
           <Box noValidate className="p-2 w-[90%]" sx={{ mt: 1 }}>
             <Button
               type="submit"
+              endIcon={<RestaurantIcon />}
               fullWidth
-              className="bg-white text-black font-bold border-2 border-black"
+              className="bg-white text-black font-bold border-2 border-black hover:bg-black hover:text-white"
               onClick={() => router.push("/chef")}
             >
               Login as a Chef
@@ -83,7 +85,7 @@ const Login = () => {
             <Button
               type="submit"
               fullWidth
-              className="bg-black text-white font-bold hover:bg-blue-500"
+              className="bg-white text-black font-bold hover:bg-white hover:text-black"
               onClick={handleSignIn}
             >
               Sign In With Google <GoogleIcon className="text-lg ml-2" />

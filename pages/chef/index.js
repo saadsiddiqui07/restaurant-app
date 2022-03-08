@@ -27,7 +27,7 @@ const Chef = () => {
   };
 
   return (
-    <div className="flex w-[100%] h-[100vh] bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 items-center">
+    <div className="flex w-[100%] h-[100vh] items-center bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400">
       <Head>
         <title>Login as a Chef</title>
       </Head>

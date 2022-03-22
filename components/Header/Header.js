@@ -1,4 +1,8 @@
 import * as React from "react";
+import { useStateValue } from "../../context-api/StateProvider";
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/router";
+import { auth } from "../../Firebase/firebase";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -15,10 +19,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
-import { useStateValue } from "../../context-api/StateProvider";
-import { signOut } from "firebase/auth";
-import { useRouter } from "next/router";
-import { auth } from "../../Firebase/firebase";
 
 function HideOnScroll(props) {
   const { children, window } = props;

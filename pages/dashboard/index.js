@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
-import { signOut } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useStateValue } from "../../context-api/StateProvider";
 import OrderCard from "../../components/OrderCard/OrderCard";

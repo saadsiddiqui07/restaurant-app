@@ -6,7 +6,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import OrderItem from "../OrderItem/OrderItem";
 import { updateDoc, doc } from "firebase/firestore";
-import { db } from "../../Firebase/firebase";
 
 const OrderCard = ({
   id,

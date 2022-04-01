@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { useStateValue } from "../../context-api/StateProvider";
 import { Button, Box, Container } from "@mui/material";
@@ -8,6 +9,8 @@ import { auth, provider } from "../../Firebase/firebase";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 
 const Chef = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [{}, dispatch] = useStateValue();
   const router = useRouter();
 
@@ -28,6 +31,11 @@ const Chef = () => {
 
   const createUserWithEmail = (e) => {
     e.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((authUser) => {
+        console.log(authUser);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -64,10 +72,14 @@ const Chef = () => {
                 Login and start cooking.
               </h1>{" "}
               <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 className="my-2 rounded-xl p-3 w-[100%] bg-gray-100 outline-0 border-none font-bold text-gray-500"
               />
               <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 className="my-2 rounded-xl p-3 w-[100%] bg-gray-100 outline-0 border-none font-bold text-gray-500"
               />
@@ -94,4 +106,5 @@ const Chef = () => {
     </div>
   );
 };
+
 export default Chef;

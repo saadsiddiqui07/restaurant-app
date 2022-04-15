@@ -180,7 +180,7 @@ export default function Header(props) {
               <RestaurantIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Hungerz Restaurant.
+              Hungerz Restaurant
             </Typography>
 
             <Box sx={{ flexGrow: 1 }} />

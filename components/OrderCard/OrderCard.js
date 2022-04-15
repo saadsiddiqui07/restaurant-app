@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { db } from "../../Firebase/firebase";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";

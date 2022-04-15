@@ -7,6 +7,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import {
   signInWithPopup,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { auth, provider } from "../../Firebase/firebase";
@@ -34,6 +35,7 @@ const Chef = () => {
       .catch((err) => console.log(err));
   };
 
+  // create a user with email
   const handleSignInWithEmail = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
@@ -53,9 +55,24 @@ const Chef = () => {
       })
       .catch((err) => {
         if (err.code === "auth/email-already-in-use") {
-          alert(
-            "Email has already been taken. Please try with a different email"
-          );
+          alert("Email already taken. Please try with a different email");
+        }
+      });
+  };
+
+  // sign in with email and password
+  const handleLoginWithEmail = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((user) => {
+        console.log(user);
+      })
+      .catch((err) => {
+        console.log(err.code);
+        if (err.code === "auth/user-not-found") {
+          alert("Create account first");
+        } else if (err.code === "auth/wrong-password") {
+          alert("Incorrect password. Try again!");
         }
       });
   };
@@ -116,12 +133,20 @@ const Chef = () => {
                 <p className="text-black font-bold text-xs underline cursor pointer ">
                   Forgot your password?
                 </p>
-                <button
-                  onClick={handleSignInWithEmail}
-                  className="bg-[#2FAA96] text-white rounded-md font-bold px-2 py-1 hover:bg-blue-500"
-                >
-                  Sign In
-                </button>
+                <div className="flex items-center">
+                  <button
+                    onClick={handleLoginWithEmail}
+                    className="bg-blue-500 text-white mr-[10px] rounded-md font-bold px-2 py-1 hover:bg-[#2FAA96]"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={handleSignInWithEmail}
+                    className="bg-[#2FAA96] text-white rounded-md font-bold px-2 py-1 hover:bg-blue-500"
+                  >
+                    Sign In
+                  </button>
+                </div>
               </div>
               <hr />
               <Button

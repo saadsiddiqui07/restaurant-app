@@ -39,7 +39,7 @@ const Categories = () => {
       <hr />
       <div className=" flex flex-col  m-1 p-2">
         <h1 className="italic font-semibold text-[25px]">Dishes</h1>
-        <div className="flex flex-col m-2 items-center sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:flex flex-wrap justify-center">
+        <div className="flex flex-col m-2 sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:flex flex-wrap justify-center">
           {dishes.map((item) => (
             <ItemCard
               key={item.id}
